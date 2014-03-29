@@ -9,6 +9,10 @@ var responses = [];
 //////////////////////////////////
 // URL's o Rutas para express
 //////////////////////////////////
+// supervisor
+server.get('/supervisor', function (req, res) {
+	res.send('supervisor es muy chido');
+});
 
 // mostrar mensaje desde el servidor
 server.get('/', function (req, res) {
@@ -17,8 +21,7 @@ server.get('/', function (req, res) {
 
 server.get('/mensajes', function (req, res) {
 	// res.send(mensajes + '<script>setTimeout(function(){window.location.reload},100)	</script>');
-	
-	// solo enviar cuando se tengan, no cada X tiempo
+
 	//almacenando los mensajes
 	responses.push(res);
 });
