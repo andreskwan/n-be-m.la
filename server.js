@@ -1,32 +1,27 @@
-var express = require('express');
+var express = require('express'),
+	swig    = require('swig');
+
 var server = express();
 
-// arreglo de mensajes
-
-var mensajes = [];
+//////////////////////////////////
+// Configuracion vistas
+//////////////////////////////////
+var mensajes  = [];
 var responses = [];
+
+
 
 //////////////////////////////////
 // URL's o Rutas para express
 //////////////////////////////////
-// supervisor
-server.get('/supervisor', function (req, res) {
-	res.send('supervisor es muy chido');
-});
 
 // mostrar mensaje desde el servidor
 server.get('/', function (req, res) {
+	debugger;
 	res.send('hello world');
 });
 
-server.get('/mensajes', function (req, res) {
-	// res.send(mensajes + '<script>setTimeout(function(){window.location.reload},100)	</script>');
-
-	//almacenando los mensajes
-	responses.push(res);
-});
-
-// // enviar mensaje al servidor
+// enviar mensaje al servidor
 server.get('/mensajes/:mensaje', function (req, res) {
 	//almacenando los mensajes
 	mensajes.push(req.params.mensaje);
@@ -38,24 +33,5 @@ server.get('/mensajes/:mensaje', function (req, res) {
 	//devolviento al browser el mensaje
 	res.send('tu mensaje es ' + req.params.mensaje);
 });
-
-
-
-// //Configuracion para render el sistema de vistas
-// server.engine('html', swig.renderFile);
-// //tipo del engine
-// server.set('view engine', 'html');
-// //donde estaran las vistas
-// server.set('views', './aap/views');
-
-// //rutas o url '/'
-// server.get('/',function (req, res){
-// 	// res.send('hello node');
-// 	res.render('home');
-// });
-
-// server.get('/supervisor', function (req, res){
-// 	res.send('supervisor es muy chevere')
-// })
 
 server.listen(3000);
