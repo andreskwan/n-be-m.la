@@ -1,15 +1,55 @@
 var express = require('express'),
 	swig    = require('swig');
 
+var session = require('express-session')
+, RedisStore = require('connect-redis')(session);
+
+// var RedisStore = require('connect-redis')(express);
+
 var server = express();
 
-//////////////////////////////////
-// Configuracion vistas
-//////////////////////////////////
-var mensajes  = [];
-var responses = [];
 
 
+
+//////////////////////////////////
+// Configuracion del server
+//////////////////////////////////
+server.configure(function (){
+	//log para ver lo que pasa en el servidor
+	server.use(express.logger());
+
+	//body parser 
+	server.use(express.cookieParser());
+	
+	//cockie parser
+	server.use(express.bodyParser());
+
+	//configurando sessiones en express
+	server.use(express.session({
+		//para evitar que se roben mis sesiones
+		secret : "locatz",
+		store  : new RedisStore({})
+		// si se desea configurar con un usuario
+		// configuracion de redis to go
+		// store  : new RedisStore({
+		// host : conf.redis.host,
+		// port : conf.redis.port, 
+		// user : conf.redis.user,
+		// pass : conf.redis.pass
+		// 	});
+
+	}));
+});
+
+//////////////////////////////////
+// Configuracion de render para vistas
+//////////////////////////////////
+//1 motor de vistas
+server.engine('html', swig.renderFile);
+//2 tipo de motor, html
+server.set('view engine', 'html');
+//3 donde estaran las vistas
+server.set('views', __dirname + '/app/views');
 
 //////////////////////////////////
 // URL's o Rutas para express
@@ -17,21 +57,19 @@ var responses = [];
 
 // mostrar mensaje desde el servidor
 server.get('/', function (req, res) {
-	debugger;
-	res.send('hello world');
+	res.render('home');
+	console.log("app PATH: " + __dirname + '/app/views');
 });
 
-// enviar mensaje al servidor
-server.get('/mensajes/:mensaje', function (req, res) {
-	//almacenando los mensajes
-	mensajes.push(req.params.mensaje);
+server.get('/app', function (req, res) {
+	res.render('app', {user : req.session.user});
+	console.log("app PATH: " + __dirname + '/app/views');
+});
 
-	// solo enviar cuando se tengan, no cada X tiempo
-	responses.forEach(function(res){
-		res.send(mensajes + '<script>window.location.reload()</script>')
-	});
-	//devolviento al browser el mensaje
-	res.send('tu mensaje es ' + req.params.mensaje);
+server.post('/log-in', function (req, res){
+	req.session.user = req.body.username
+
+	res.redirect('/app');
 });
 
 server.listen(3000);
