@@ -1,9 +1,11 @@
 var express = require('express'),
-	swig = require('swig');
+	swig = require('swig'),
+	_ = require('underscore');
 
 var RedisStore = require('connect-redis')(express);
 
 var server = express();
+
 
 var users = [];
 
@@ -55,15 +57,33 @@ server.get('/', isLoggedIn, function (req, res) {
 });
 
 server.get('/app', isntLoggedIn, function (req, res) {
-	debugger;
+	// debugger;
 	// res.render('app', {
 	// 	user : req.session.user,
 	// 	users : users
 	// });
-	res.render('app', {user : req.session.user });
+	res.render('app', {
+		user : req.session.user,
+		users : users 
+	});
 
 });
 
+server.post('/log-in', function (req, res){
+	users.push(req.body.username);
+	req.session.user = req.body.username
+	res.redirect('/app');
+});
+
+server.get('/log-out', function (req, res){
+	debugger;
+	//debo sacar el usuario del arreglo users
+	users = _.without(users, req.session.user);
+	//debo destruir la sesion al usuario
+	req.session.destroy();
+	//sacarlo de la app y enviarlo al home del site
+	res.redirect('/');
+});
 // server.get('/app', isntLoggedIn(), function (req, res) {
 // 	debugger;
 
@@ -79,9 +99,6 @@ server.get('/app', isntLoggedIn, function (req, res) {
 //   que escuche los post
 //////////////////////////////////
 
-server.post('/log-in', function (req, res){
-	req.session.user = req.body.username
-	res.redirect('/app');
-});
+
 
 server.listen(3001);
