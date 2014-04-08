@@ -1,96 +1,62 @@
 var express = require('express'),
-	swig    = require('swig');
+	swig = require('swig');
 
-var session = require('express-session');
-var RedisStore = require('connect-redis')(session);
-
-// var RedisStore = require('connect-redis')(express);
+var RedisStore = require('connect-redis')(express);
 
 var server = express();
 
-//////////////////////////////////
-// Configuracion del server
-// - agregar Post
-// - agregar Cookie
-// - agregar Session
-// - add render for views
-// - 
-//////////////////////////////////
-server.configure(function (){
-	//////////////////////////////////
-	//Ver lo que llega a nuestro servidor
-	//////////////////////////////////
+server.engine('html',swig.renderFile);
+server.set('view engine', 'html');
+server.set('views','./app/views/');
 
-	//log para ver lo que pasa en el servidor
-	//Donde se visualiza este log?
+server.configure(function() {
 	server.use(express.logger());
-
-	//bodyParser 
-	//is a middleware
-	//express documentation
-	server.use(express.bodyParser());
-		
-	//coockie parser
 	server.use(express.cookieParser());
+	server.use(express.bodyParser());
 
-	//////////////////////////////////
-	//configurando sessiones en express
-	//////////////////////////////////
 	server.use(express.session({
-		//para evitar que se roben mis sesiones
-		secret : "locatz",
+		secret : "lolcatz",
 		store  : new RedisStore({})
-		// si se desea configurar con un usuario
-		// configuracion de redis to go
 		// store  : new RedisStore({
-		// host : conf.redis.host,
-		// port : conf.redis.port, 
-		// user : conf.redis.user,
-		// pass : conf.redis.pass
-		// 	});
-
+		//	host : conf.redis.host,
+		//	port : conf.redis.port,
+		//	user : conf.redis.user,
+		//	pass : conf.redis.pass
+		// });	
 	}));
-
-
-	//////////////////////////////////
-	// Configuracion de render para vistas
-	//////////////////////////////////
-
-	//1 motor de vistas
-	server.engine('html', swig.renderFile);
-	//2 tipo de motor, html
-	server.set('view engine', 'html');
-	//3 donde estaran las vistas
-	server.set('views', __dirname + '/app/views');
 });
 
+var isntLoggedIn = function (req, res, next) {
+	if(!req.session.user){
+		res.redirect('/');
+		return;
+	}
 
+	next();
+};
 
-
-
-//////////////////////////////////
-// URL's o Rutas para express
-//////////////////////////////////
-
-//////////////////////////////////
-// Get Enviar info al usuario
-// - 
-//   
-// - 
-//   
-//////////////////////////////////
 
 // mostrar mensaje desde el servidor
 server.get('/', function (req, res) {
 	res.render('home');
-	console.log("app PATH: " + __dirname + '/app/views');
+	// console.log("app PATH: " + __dirname + '/app/views');
 });
 
-server.get('/app', function (req, res) {
+server.get('/app', isntLoggedIn, function (req, res) {
+	// res.render('app', {
+	// 	user : req.session.user,
+	// 	users : users
+	// });
 	res.render('app', {user : req.session.user });
-	console.log("app PATH: " + __dirname + '/app/views');
+
 });
 
+// server.get('/app', isntLoggedIn(), function (req, res) {
+// 	debugger;
+
+// 	res.render('app', {user : req.session.user });
+// 	// console.log("app PATH: " + __dirname + '/app/views');
+// });
 
 //////////////////////////////////
 // Post Recibir info del usuario
@@ -105,4 +71,4 @@ server.post('/log-in', function (req, res){
 	res.redirect('/app');
 });
 
-server.listen(3000);
+server.listen(3001);
