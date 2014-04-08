@@ -5,6 +5,8 @@ var RedisStore = require('connect-redis')(express);
 
 var server = express();
 
+var users = [];
+
 server.engine('html',swig.renderFile);
 server.set('view engine', 'html');
 server.set('views','./app/views/');
@@ -27,6 +29,7 @@ server.configure(function() {
 });
 
 var isntLoggedIn = function (req, res, next) {
+	// debugger;
 	if(!req.session.user){
 		res.redirect('/');
 		return;
@@ -36,13 +39,23 @@ var isntLoggedIn = function (req, res, next) {
 };
 
 
+var isLoggedIn = function (req, res, next) {
+	// debugger;
+	if(req.session.user){
+		res.redirect('/app');
+		return;
+	}
+	next();
+};
+
 // mostrar mensaje desde el servidor
-server.get('/', function (req, res) {
+server.get('/', isLoggedIn, function (req, res) {
 	res.render('home');
 	// console.log("app PATH: " + __dirname + '/app/views');
 });
 
 server.get('/app', isntLoggedIn, function (req, res) {
+	debugger;
 	// res.render('app', {
 	// 	user : req.session.user,
 	// 	users : users
