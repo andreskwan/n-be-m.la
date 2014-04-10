@@ -36,77 +36,13 @@ server.configure(function() {
 	}));
 });
 
-var isntLoggedIn = function (req, res, next) {
-	// debugger;
-	if(!req.session.user){
-		res.redirect('/');
-		return;
-	}
+// Controllers
+var homeController = require('./app/controllers/home.js');
+var appController  = require('./app/controllers/app.js');
 
-	next();
-};
-
-
-var isLoggedIn = function (req, res, next) {
-	// debugger;
-	if(req.session.user){
-		res.redirect('/app');
-		return;
-	}
-	next();
-};
-
-// mostrar mensaje desde el servidor
-server.get('/', isLoggedIn, function (req, res) {
-	res.render('home');
-	// console.log("app PATH: " + __dirname + '/app/views');
-});
-
-server.get('/app', isntLoggedIn, function (req, res) {
-	// debugger;
-	// res.render('app', {
-	// 	user : req.session.user,
-	// 	users : users
-	// });
-	res.render('app', {
-		user : req.session.user,
-		users : users 
-	});
-});
-
-server.post('/log-in', function (req, res){
-	users.push(req.body.username);
-
-
-	req.session.user = req.body.username
-
-	//para comunicarme por sockets
-	//notifica a todos en el server quien hizo log-in
-	server.io.broadcast('log-in',{username : req.session.user});
-
-	res.redirect('/app');
-});
-
-server.get('/log-out', function (req, res){
-	// debugger;
-	//debo sacar el usuario del arreglo users
-	//para comunicarme por sockets
-	//notifica a todos en el server quien hizo log-out
-	server.io.broadcast('log-out',{username : req.session.user});
-
-	users = _.without(users, req.session.user);
-	//debo destruir la sesion al usuario
-	req.session.destroy();
-	//sacarlo de la app y enviarlo al home del site
-	res.redirect('/');
-});
-
-// nuevas rutas para socket.io
-server.io.route('Hello', function(req){
-	// debugger;
-	req.io.emit('Saludo',{
-		message: 'ServerReadyy'
-	});
-});
+//Pasarles las variables que necesitan para funcionar correctamente
+homeController(server,users);
+appController(server,users);
 
 server.listen(3001);
+console.log('Servidor corriendo en http://127.0.0.1:3001');
