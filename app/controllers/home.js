@@ -1,3 +1,4 @@
+// MVC here we have the CONTROLLERS
 //todo lo relacionado con la ruta home
 //command.js base de los modulos
 var _ = require('underscore');
@@ -5,11 +6,9 @@ var _ = require('underscore');
 //
 var homeController = function (server, users) {
 	
-
-
 	var isLoggedIn = function (req, res, next) {
 		// debugger;
-		if(req.session.user){
+		if(req.session.passport.user){
 			res.redirect('/app');
 			return;
 		}
@@ -17,9 +16,8 @@ var homeController = function (server, users) {
 	};
 
 	server.post('/log-in', function (req, res){
+		// debugger;
 		users.push(req.body.username);
-
-
 		req.session.user = req.body.username
 
 		//para comunicarme por sockets
@@ -43,17 +41,15 @@ var homeController = function (server, users) {
 		res.redirect('/');
 	});
 
-		// mostrar mensaje desde el servidor
+	// mostrar mensaje desde el servidor
 	server.get('/', isLoggedIn, function (req, res) {
 		res.render('home');
 		// console.log("app PATH: " + __dirname + '/app/views');
 	});
 
-	
-
-	console.log('homeController POPO has beed loaded');
+	console.log('homeController has beed loaded');
 };
 
-//module es global y nos permite acceder objetos (como el window)
+//module nos permite acceder objetos de manera global(como el window)
 module.exports = homeController;
 

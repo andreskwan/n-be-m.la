@@ -1,6 +1,8 @@
 var express = require('express.io'),
 	swig = require('swig'),
 	_ = require('underscore');
+//server para passport
+var	passport = require('passport');
 
 var RedisStore = require('connect-redis')(express);
 
@@ -34,15 +36,37 @@ server.configure(function() {
 		//	pass : conf.redis.pass
 		// });	
 	}));
+
+	//middlewares de passport
+	server.use(passport.initialize());
+	//sesiones para passport
+	//rq.session.passport
+	server.use(passport.session());
 });
 
-// Controllers
+//funciones para serializar y deserializar usuarios
+passport.serializeUser(function(user, done){
+	done(null, user);
+});
+
+passport.deserializeUser(function(obj, done){
+	done(null, obj);
+});
+
+// Aqui van los Controllers
 var homeController = require('./app/controllers/home.js');
 var appController  = require('./app/controllers/app.js');
 
 //Pasarles las variables que necesitan para funcionar correctamente
 homeController(server,users);
 appController(server,users);
+
+// Connections
+// tambien podrian ser para otros servicios como fb
+var twitterConnection = require('./app/connections/twitter.js');
+
+twitterConnection(server);
+
 
 server.listen(3001);
 console.log('Servidor corriendo en http://127.0.0.1:3001');
