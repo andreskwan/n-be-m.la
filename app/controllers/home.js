@@ -43,6 +43,7 @@ var homeController = function (server, users) {
 
 	// mostrar mensaje desde el servidor
 	server.get('/', isLoggedIn, function (req, res) {
+		// debugger;
 		res.render('home');
 		// console.log("app PATH: " + __dirname + '/app/views');
 	});

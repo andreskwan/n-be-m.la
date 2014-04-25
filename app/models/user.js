@@ -1,3 +1,5 @@
+//nunca cambiar en tiempo real
+
 //cargar modulo de modelos
 //los modelos require dos cosas
 //1 los modelos 
@@ -9,8 +11,10 @@ var userSchema = Schema({
 	username : 'string',
 	twitter  : Schema.Types.Mixed
 });
-//convertir el schema a un modelo
 
+
+//convertir el schema a un modelo
+//userSchema es la estructura que debe usar
 var User = models.model('user', userSchema);
 
 module.exports = User;

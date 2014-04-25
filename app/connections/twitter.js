@@ -1,6 +1,8 @@
 var passport = require('passport'),
 	passportTwitter = require('passport-twitter'),
 	TwitterStrategy = passportTwitter.Strategy;
+var User = require('../models/user.js');
+
 
 var twitterConnection = function (server) {
 	console.log('twitterConnection ready');
@@ -15,16 +17,35 @@ var twitterConnection = function (server) {
 
 		}, 
 		function (token, tokenSecret, profile, done){
-			// debugger;
+		    debugger;
 
+			var user = new User(
+			{
+					username : profile.username,
+					twitter  : profile
+			}
+			);
+
+			//guardar en la db
+			user.save(function (err){
+				debugger;
+				if(err){
+					done(err, null);
+					return;
+				}
+			});
+
+			//guardar el perfil con la sesion
 			done(null, profile);
 
 		}
 	));
 
-	server.get('/auth/twitter', passport.authenticate('twitter'));
+	//go to twitter and authenticate
+	server.get('/auth/twitter', 
+		passport.authenticate('twitter'));
 
-
+	//when authenticated come back (callback)
 	server.get('/auth/twitter/callback', 
 		passport.authenticate('twitter', 
 			{failureRedirect: '/'}), 
