@@ -8,8 +8,9 @@ var models = require('./models.js'),
 	Schema = models.Schema;
 
 var userSchema = Schema({
-	username : 'string',
-	twitter  : Schema.Types.Mixed
+	username  : 'string',
+	twitter   : Schema.Types.Mixed,
+	image_url : 'string' 
 });
 
 

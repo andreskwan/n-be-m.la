@@ -18,11 +18,13 @@ var twitterConnection = function (server) {
 		}, 
 		function (token, tokenSecret, profile, done){
 		    debugger;
-
+		    
 			var user = new User(
 			{
-					username : profile.username,
-					twitter  : profile
+					username  : profile.username,
+					twitter   : profile,
+					image_url : profile.photos[0].value
+
 			}
 			);
 
@@ -35,6 +37,11 @@ var twitterConnection = function (server) {
 				}
 			});
 
+			// var jsonTw = profile;
+		    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		    // console.log("from db:" + profile.photos[0].value);
+		    console.log("from db:" + user.get('image_url'));
+		    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 			//guardar el perfil con la sesion
 			done(null, profile);
 
