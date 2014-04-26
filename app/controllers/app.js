@@ -13,7 +13,7 @@ var appController = function (server,users) {
 	};
 
 	server.get('/app', isntLoggedIn, function (req, res) {
-		debugger;
+		// debugger;
 		res.render('app', {			
 			//user es el objeto json o profile del usuario
 			//no seria mejor que en app.js 

@@ -22,7 +22,7 @@ var twitterConnection = function (server) {
 
 		}, 
 		function (token, tokenSecret, profile, done){
-		    debugger;
+		    // debugger;
 		    
 			var user = new User(
 			{
@@ -35,7 +35,7 @@ var twitterConnection = function (server) {
 
 			//guardar en la db
 			user.save(function (err){
-				debugger;
+				// debugger;
 				if(err){
 					done(err, null);
 					return;
