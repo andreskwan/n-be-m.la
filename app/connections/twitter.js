@@ -11,8 +11,8 @@ var twitterConnection = function (server) {
 		//strategy for connection
 		new TwitterStrategy(
 		{
-			consumerKey: 'uAk79AhgznqNQRsl9XPMxZ548',
-			consumerSecret: 'NsH5wxTLID3UVpw9KF9mqD2Wzz9wjBB5VoVCUgy114pMvL5QMa',
+			consumerKey: 'l2esvSna1YCX3Mrem5j6jH2lS',
+			consumerSecret: 'j7N82BS6nObIubFfbA8qnJ1zqkedMXbDP6anfkTiuE6hc1pNLJ',
 			callbackURL: 'http://127.0.0.1:3001/auth/twitter/callback'
 
 		}, 
