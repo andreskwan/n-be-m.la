@@ -1,8 +1,0 @@
-{
-  "name": "curso-backend",
-  "description": "Mejorando.la backend node.js example september 2013",
-  "version": "0.0.1",
-  "dependencies": {
-    "express": "^3.5.1"
-  }
-}
