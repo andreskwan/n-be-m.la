@@ -1,5 +1,5 @@
 node_modules
 mejorandola
 public/foundation
-apikey.js
-
+apikey.json
+npm-debug.log

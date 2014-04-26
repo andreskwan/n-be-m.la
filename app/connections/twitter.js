@@ -1,8 +1,13 @@
-var passport = require('passport'),
+var passport        = require('passport'),
 	passportTwitter = require('passport-twitter'),
 	TwitterStrategy = passportTwitter.Strategy;
-var User = require('../models/user.js');
+var User            = require('../models/user.js');
+var fs 				= require('fs');
+var path			= require('path');
 
+var settings = JSON.parse(
+				fs.readFileSync(
+					path.resolve(__dirname,'../../apikey.json'),'utf8'));
 
 var twitterConnection = function (server) {
 	console.log('twitterConnection ready');
@@ -11,9 +16,9 @@ var twitterConnection = function (server) {
 		//strategy for connection
 		new TwitterStrategy(
 		{
-			consumerKey: 'l2esvSna1YCX3Mrem5j6jH2lS',
-			consumerSecret: 'j7N82BS6nObIubFfbA8qnJ1zqkedMXbDP6anfkTiuE6hc1pNLJ',
-			callbackURL: 'http://127.0.0.1:3001/auth/twitter/callback'
+			consumerKey:    settings.consumerKey,
+			consumerSecret: settings.consumerSecret,
+			callbackURL:    settings.callbackURL
 
 		}, 
 		function (token, tokenSecret, profile, done){
