@@ -1,12 +1,14 @@
 var express = require('express.io'),
 	swig = require('swig'),
 	_ = require('underscore');
+var serverPort = 3000;
 //server para passport
 var	passport = require('passport');
 
 var RedisStore = require('connect-redis')(express);
 
 var server = express();
+server.set('port', process.env.PORT || serverPort);
 //para correr socket.io y express en el mismo puerto
 //una linea majica
 server.http().io();
@@ -68,5 +70,7 @@ var twitterConnection = require('./app/connections/twitter.js');
 twitterConnection(server);
 
 
-server.listen(3001);
-console.log('Servidor corriendo en http://127.0.0.1:3001');
+server.listen(server.get('port'), function(){
+  console.log('Express server listening on port ' + server.get('port'));
+});
+// console.log('Servidor corriendo en http://127.0.0.1:3001');

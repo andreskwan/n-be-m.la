@@ -8,7 +8,6 @@ var appController = function (server,users) {
 			res.redirect('/');
 			return;
 		}
-
 		next();
 	};
 
