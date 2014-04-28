@@ -15,6 +15,7 @@ var RedisStore = require('connect-redis')(express);
 
 //create the server
 var server = express();
+
 //associate the server with the port number
 server.set('port', process.env.PORT || serverPort);
 
