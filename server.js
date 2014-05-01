@@ -5,7 +5,7 @@ var swig = require('swig');
 //js array manipulation easy
 var	_ = require('underscore');
 //port number
-var serverPort = 3000;
+var serverPort = 3001;
 
 //authentication 
 var	passport = require('passport');
