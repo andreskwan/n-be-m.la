@@ -1,6 +1,8 @@
 // todo lo relacionado con la ruta app
 var appController = function (server,users) {
 
+	//middleware
+	//called before to redirect to /app
 	var isntLoggedIn = function (req, res, next) {
 		// debugger;
 		if(!req.session.passport.user){

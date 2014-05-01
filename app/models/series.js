@@ -2,11 +2,14 @@ var models = require('./models.js'),
 	Schema = models.Schema;
 
 var seriesSchema = Schema({
-	titulo 		: 'string',
-	temporadas  : Number,
-	pais		: String,
-	genero		: {type: String,
-				   enum: ['Comedia','Sci-Fi','Action']}
+	title:    { type: String },
+  	year:     { type: Number },
+  	country:  { type: String },
+  	poster:   { type: String },
+  	seasons:  { type: Number },
+  	genre:    { type: String, enum:
+  				['Drama', 'Fantasy', 'Sci-Fi', 'Thriller', 'Comedy']},
+  	summary:  { type: String }    
 });
 //convertir el schema a un modelo
 

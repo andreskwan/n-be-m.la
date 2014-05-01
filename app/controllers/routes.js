@@ -6,10 +6,13 @@ var SerieController = function (server) {
 		console.log('POST');
 		console.log(req.body);
 		var serieTvObj = new SeriesTVmodel({
-			titulo		: req.body.titulo,
-			temporadas  : req.body.temporadas,
-			pais		: req.body.pais,
-			genero		: req.body.genero
+			title:    req.body.title,
+    		year:     req.body.year,
+    		country:  req.body.country,
+    		poster:   req.body.poster,
+    		seasons:  req.body.seasons,
+		    genre:    req.body.genre,
+    		summary:  req.body.summary  
 		});
 
 		//db save 
@@ -45,10 +48,14 @@ var SerieController = function (server) {
 		SeriesTVmodel.findById(req.params.id, function(err, serieTvObj){
 			if(!err){
 				// res.send(serieTvObj);
-				serieTvObj.titulo	    = req.body.titulo,
-				serieTvObj.temporadas   = req.body.temporadas,
-				serieTvObj.pais	    	= req.body.pais,
-				serieTvObj.genero		= req.body.genero
+				serieTvObj.title   = req.body.title;
+			    serieTvObj.year    = req.body.year;
+			    serieTvObj.country = req.body.country;
+			    serieTvObj.poster  = req.body.poster;
+			    serieTvObj.seasons = req.body.seasons;
+			    serieTvObj.genre   = req.body.genre;
+			    serieTvObj.summary = req.body.summary;
+
 			}else{
 				console.log('Can\'t find serie Error:' + err);
 			};
