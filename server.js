@@ -42,7 +42,10 @@ server.use(express.static('./public'))
 server.configure(function() {
 	server.use(express.logger());
 	server.use(express.cookieParser());
+	//Para usar metodos de HTTP
 	server.use(express.bodyParser());
+	// server.use(express.methodOverride());
+	// server.use(server.router);
 
 	server.use(express.session({ 
 		secret : "lolcatz",
@@ -87,6 +90,13 @@ appController(server,users);
 var twitterConnection = require('./app/connections/twitter.js');
 twitterConnection(server);
 
+/////////////////////////////////////
+// ApiREST
+var seriesTV = require('./app/models/series.js');
+var serieApiRestRouter = require('./app/controllers/routes.js');
+serieApiRestRouter(server);
+
+/////////////////////////////////////
 //catch-all route to display a 404 page 
 // when the requested content can’t be found.
 server.use(function (req,res) {
