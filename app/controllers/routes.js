@@ -88,7 +88,7 @@ var SerieController = function (server) {
 	server.put('/seriestv/:id',    updateSerie);
 	server.delete('/seriestv/:id', deleteSerie); 
 
-	console.log('SerieController has beed loaded');
+	console.log('Series controller has beed loaded');
 };
 
 

@@ -2,6 +2,7 @@ var User    = require('../models/user.js');
 var Post 	= require('../models/post.js');
 var url     = require('url');
 var request = require('request');
+var _       = require('underscore');
 // todo lo relacionado con la ruta app
 var appController = function (server,users) {
 
@@ -43,7 +44,18 @@ var appController = function (server,users) {
 		//Post para mostrarle al usuario
 		Post.find({}).exec(
 			function (err, posts){
+
+				//to convert all post to JSON
+				//by using map, is not the same  
+				var postsAsJsonUS = _.map(posts, function(post){
+					return post.toJSON();
+				});
+
+				var postsAsJsonJS = posts.map(function(post){
+					return post.toJSON();
+				});
 				debugger;
+
 				res.render('app', {			
 					//user es el objeto json o profile del usuario
 					//no seria mejor que en app.js 
@@ -53,7 +65,8 @@ var appController = function (server,users) {
 					//no tiene que ir hasta el servidor para tomar acciones
 					user  : req.session.passport.user,
 					users : users, 
-					posts : posts 
+					//I should send JSON to the views
+					posts : postsAsJsonJS
 				});
 		});
 		// debugger;

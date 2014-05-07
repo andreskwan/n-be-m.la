@@ -19,6 +19,12 @@
 			<button>Post Tweet</button>
 		</form>
 	</div>
+
+	<div id="post">
+		{% for post in posts %}
+			<p>{{post.content}}</p>
+		{% endfor %}
+	</div>
 {% endblock %}
 
 {% block scripts %}
