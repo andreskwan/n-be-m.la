@@ -33,7 +33,7 @@ server.set('views','./app/views/');
 // cargar archivos estaticos
 //Using the static handler, 
 // anything in /public can now be accessed by name.
-server.use(express.static('./public'))
+server.use(express.static('./public'));
 //an alternative 
 //advantage - better path management
 //static files also with require('path')

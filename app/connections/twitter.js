@@ -24,6 +24,7 @@ var twitterConnection = function (server) {
 		function (token, tokenSecret, profile, done){
 		    // debugger;
 		    
+		    //How to store the user in the DB
 			var user = new User(
 			{
 					username  : profile.username,

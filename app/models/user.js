@@ -15,6 +15,7 @@ var userSchema = Schema({
 
 
 //convertir el schema a un modelo
+//user - name of the model in the DB
 //userSchema es la estructura que debe usar
 var User = models.model('user', userSchema);
 
