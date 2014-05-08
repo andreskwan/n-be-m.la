@@ -21,8 +21,9 @@
 	</div>
 
 	<div id="post">
+		<!-- <p>{{nota}}</p> -->
 		{% for post in posts %}
-			<p>{{post.content}}</p>
+			<p>{{post.user.username}} : {{post.content}}</p>
 		{% endfor %}
 	</div>
 {% endblock %}

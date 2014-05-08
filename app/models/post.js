@@ -1,3 +1,4 @@
+//persist posts
 var models = require('./models.js');
 var Schema = models.Schema;
 
