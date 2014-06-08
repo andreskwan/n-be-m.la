@@ -7,7 +7,7 @@ var	_ = require('underscore');
 //port number
 var serverPort = 3001;
 
-//authentication 
+//authentication  
 var	passport = require('passport');
 
 //db for users authenticated
@@ -20,7 +20,7 @@ var server = express();
 server.set('port', process.env.PORT || serverPort);
 
 //para correr socket.io y express en el mismo puerto
-//una linea majica
+//una linea magica
 server.http().io();
 
 var users = [];

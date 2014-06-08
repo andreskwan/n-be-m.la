@@ -6,7 +6,6 @@ var _       = require('underscore');
 // todo lo relacionado con la ruta app
 var appController = function (server,users) {
 
-
 	// options = {
 	// 	protocol: "https:",
 	// 	host: "api.twitter.com",
@@ -16,7 +15,8 @@ var appController = function (server,users) {
 
 	// var searchURL = url.format(options);
 
-
+	//middleware
+	//to obtain the user in the db 
 	var getUser = function (req,res, next){
 		User.findOne({username:req.session.passport.user.username}, 
 			function(err, user){
@@ -40,7 +40,9 @@ var appController = function (server,users) {
 		next();
 	};
 
-	server.get('/app', isntLoggedIn, function (req, res) {
+	
+
+	var getPosts = function (req, res) {
 		//Post para mostrarle al usuario
 		//pupulate brings all the user document from the db
 		//I guest this could be inproved, what happen if there
@@ -72,40 +74,46 @@ var appController = function (server,users) {
 					//I should send JSON to the views
 					posts : postsAsJsonJS
 				};
+				//
+				//write all posts to the app page
 				res.render('app', objToRender);
 				// debugger;
 		});
 		// debugger;
 		// request(searchURL).pipe(res);
-
-	});
+	};
 
 	//POST 
 	//from the form of post in app
-	server.post('/app/create-post', isntLoggedIn, getUser, function (req, res){
-		
-			var post = new Post({
-				content : req.body.content,
-				user    : req.user
-			});			
-
+	var createPost =  function (req, res){	
+		//creates a post with JSON format	
+		var post = new Post({
+			content : req.body.content,
+			user    : req.user
+		});			
+		//save the post in the db in the server
 		post.save(function(err){
 			// debugger;
 			if(err){
 				res.send(500, err);
 			}
-
 			var userObj =  req.user.toJSON();
-				// debugger;
+			// debugger;
 
-		//to add socket io functionality
+			//to add socket io functionality
+			//this is broadcast to all sockets open (client side)
+			//what about rooms?
+			//- how to distinguish them 
 			server.io.broadcast('post',
 				{content : post.content,
 					user : userObj.username
 				});
 			res.redirect('/app'); 
 		});
-	});
+	};
+
+	server.post('/app/create-post', isntLoggedIn, getUser, createPost);
+	server.get('/app', isntLoggedIn, getPosts);
 
 	console.log('appController has beed loaded');
 };

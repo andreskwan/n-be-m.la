@@ -81,6 +81,7 @@ var SerieController = function (server) {
 		});
 	};
 
+	//great way to organize methods according to APIRest
 	// api routes
 	server.get('/seriestv',        findAllSeries);
 	server.get('/seriestv/:id',    findSerieById);
