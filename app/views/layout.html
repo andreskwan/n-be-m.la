@@ -3,13 +3,20 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>{%block title %}Backend pro{% endblock %}</title>
+	<link rel="stylesheet" href="../css/estilos.css" />
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans Condensed:300italic,300,700" rel="stylesheet" type="text/css">
+	<title>{%block title %}Futbolero{% endblock %}</title>
 
 	{% block head %}
 
 	{% endblock %}
 </head>
 <body>
+	<header class="banner">
+		<h1 class="bannertext">
+			<a href="#" id="logo">Futbolero<span> La Polla!!!</span></a>
+		</h1>
+	</header>
 	{% block content %}
 	
 	{% endblock %}

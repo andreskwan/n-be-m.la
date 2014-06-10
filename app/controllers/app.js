@@ -42,7 +42,7 @@ var appController = function (server,users) {
 
 	
 
-	var getPosts = function (req, res) {
+	var getMessage = function (req, res) {
 		//Post para mostrarle al usuario
 		//pupulate brings all the user document from the db
 		//I guest this could be inproved, what happen if there
@@ -70,6 +70,7 @@ var appController = function (server,users) {
 					//no tiene que ir hasta el servidor para tomar acciones
 					// nota  : "de Andres con Amor",
 					user  : req.session.passport.user,
+					// user : req.user. no funciona con getUser(), why?
 					// users : users, 
 					//I should send JSON to the views
 					posts : postsAsJsonJS
@@ -85,7 +86,7 @@ var appController = function (server,users) {
 
 	//POST 
 	//from the form of post in app
-	var createPost =  function (req, res){	
+	var postMessage =  function (req, res){	
 		//creates a post with JSON format	
 		var post = new Post({
 			content : req.body.content,
@@ -112,8 +113,8 @@ var appController = function (server,users) {
 		});
 	};
 
-	server.post('/app/create-post', isntLoggedIn, getUser, createPost);
-	server.get('/app', isntLoggedIn, getPosts);
+	server.post('/app/create-post', isntLoggedIn, getUser, postMessage);
+	server.get('/app', isntLoggedIn, getMessage);
 
 	console.log('appController has beed loaded');
 };

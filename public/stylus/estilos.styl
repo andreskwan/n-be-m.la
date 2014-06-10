@@ -1,2 +1,195 @@
-h1
-	color red
+@import 'normalize'
+
+gris_oscuro    = #333333
+gris_claro     = #D1D1D1
+fondo_original = #f0f1f3
+fondo          = white
+c-titulo-caja  = #d6441b
+c-bubble       = gris_oscuro
+c-banner       = #3C4446
+c-texto-caja   = white
+c-middle       = #87CEEB
+c-top          = #ff6347 
+
+a
+	text-decoration none
+footer
+	position fixed
+	// top 90%
+	bottom 0%
+	width 100%
+	height 4em
+	background-color red
+	display none
+	left 0
+	padding-top 1em
+ul
+	padding 0px
+.banner
+	background-color #3c4446
+	height 70px
+	margin 0px
+	// margin-bottom 200px
+.bannertext
+	font-family 'Open Sans Condensed',serif
+	font-size 25px
+	font-weight bold
+	padding 15px
+	text-align center
+	margin 0px
+	a
+		text-decoration none
+		color white
+	span
+		color #d6441b
+.caja 
+	text-align center
+	display block
+	margin 0px auto
+	width 290px
+	height 400px
+	background-color c-banner
+	border-radius 3px
+	box-shadow 0px 3px 3px #e3e4e6
+	color #637277
+	display none
+	figure
+		padding-top 1em
+	h2
+		color c-titulo-caja
+		text-align center
+		padding 20px
+		// width 210px
+		// overflow hidden
+		// margin 0 auto
+	h5
+		font-weight normal
+		color c-texto-caja      
+		margin-bottom 100px
+	&.small
+		width 20em
+		// margin 0 auto
+.center-block
+	margin 0 auto
+.chatscreen
+	display none
+	// width 700px
+	margin 0 auto 200px
+	overflow hidden
+.chats//ul
+	position relative
+	list-style none
+	// list-style-type none
+	// border 8px solid yellow
+    // padding-left 8px
+    // margin-left: 0;
+.me
+	.mensaje
+		background-color c-banner
+		p
+			color gris_claro
+	.bubble
+	.usuario
+		float right
+		margin-left 1em
+	// .bubble
+	// 	// background-color gris_oscuro
+		
+.you
+	// .bubble		
+	.usuario		
+		float left
+		margin-right 1em
+	.mensaje
+		background-color gris_claro
+		p
+			color gris_oscuro
+	// .bubble
+	// 	background-color gris_claro
+
+.you//li	
+.me//li
+	// background-color c-banner
+	margin-bottom 10px
+	display block
+	// margin-left -4em
+.bubble 
+	color gris_claro
+	max-width 310px
+	// border-radius 5px
+	// box-shadow 0px 3px 3px #E3E4E6
+	// border 5px solid gray	
+	p 
+		width auto
+		height auto
+		word-wrap break-word
+	b
+		color gris_oscuro
+	b
+	i 
+		// border 1px solid white
+		font-size 0.8em
+		width 100%
+		word-wrap break-word
+		display block
+		// float center
+		text-align center
+	figure
+		margin 0px
+		padding-left 1em
+		// height 50%
+		// border 5px solid red
+	img
+		// border 5px solid red
+		width  50px
+		height 50px
+		border-radius 50%
+.name
+.time
+	// border 5px solid red
+	// margin 0 auto
+	word-wrap break-word
+	display block
+	text-align center
+.timesent
+	// border 2px solid green
+	font-size 0.8em
+	width auto
+	color gris_claro
+	float center
+.mensaje
+	// border 5px solid red	
+	// background-color c-banner
+	border-radius 5px
+	box-shadow 0px 3px 3px #E3E4E6
+	max-width 240px
+	min-width 150px
+	padding 0em 1em
+.mensaje
+.usuario
+	// border 5px solid white
+	display inline-block	
+	height 100%
+	width  80px
+	// margin 1em
+	color  gris_oscuro
+.foto
+	display inline-block
+	text-align center
+	padding 0 
+	// margin 0 auto
+.flags 
+	content ""
+	height 50%
+	// border 5px solid green
+.group:before,
+.group:after{
+	content: "";
+	display: table;
+}
+.group:after{
+	clear: both;
+}
+@media screen and (min-width:480px)
+	.caja
+		width 480px
