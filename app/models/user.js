@@ -20,3 +20,4 @@ var userSchema = Schema({
 var User = models.model('user', userSchema);
 
 module.exports = User;
+

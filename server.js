@@ -96,6 +96,10 @@ var seriesTV = require('./app/models/series.js');
 var serieApiRestRouter = require('./app/controllers/routes.js');
 serieApiRestRouter(server);
 
+var holidays = require('./app/models/holiday.js');
+var holidayApiRestRouter = require('./app/controllers/holidayRoutes.js');
+holidayApiRestRouter(server);
+
 /////////////////////////////////////
 //catch-all route to display a 404 page 
 // when the requested content can’t be found.
