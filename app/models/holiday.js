@@ -2,11 +2,16 @@ var models = require('./models.js'),
 	Schema = models.Schema;
 
 var holidaySchema = Schema({
-	name         :          { type: String, trim: true },
-	observedBy   :     		{ type: Array },
-	wikipediaLink:  		{ type: String, trim: true },
+	createdAt    : 			{ type: Date, default: Date.now },
+	date	     : 			{ type: Date },
 	details      : 		    { type: String, trim: true },
-	date	     : 			{ type: Date, default: Date.now }
+	image		 : 			{ data: Buffer, contentType: String },
+	name         :          { type: String, trim: true },
+	objectId     :          { type: String },
+	observedBy   :     		{ type: Array },
+	syncStatus   : 		    { type: Number },
+	updatedAt    : 			{ type: Date },
+	wikipediaLink:  		{ type: String, trim: true }
 });
 //convertir el schema a un modelo
 //compiling our schema into a Model.
