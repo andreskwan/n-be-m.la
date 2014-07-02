@@ -5,7 +5,8 @@ var holidaySchema = Schema({
 	createdAt    : 			{ type: Date, default: Date.now },
 	date	     : 			{ type: Date },
 	details      : 		    { type: String, trim: true },
-	image		 : 			{ data: Buffer, contentType: String },
+	// image		 : 			{ data: Buffer, contentType: String },
+	image		 : 			{ type: String },
 	name         :          { type: String, trim: true },
 	objectId     :          { type: String },
 	observedBy   :     		{ type: Array },
@@ -19,3 +20,5 @@ var holidaySchema = Schema({
 var Holidays = models.model('holiday', holidaySchema);
 
 module.exports = Holidays;
+
+

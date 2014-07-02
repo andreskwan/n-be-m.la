@@ -6,11 +6,16 @@ var HolidayController = function (server) {
 		console.log('POST');
 		console.log(req.body);
 		var holidayObj = new HolidaysModel({
-			name         :     req.body.name,
-			observedBy   :     req.body.observedBy,
-			wikipediaLink:     req.body.wikipediaLink,
-			details      :     req.body.details,
-			date         :     req.body.date
+				createAt      : req.body.createAt,
+				date          : req.body.date,
+				details       : req.body.details,
+				image		 : req.body.image,
+				name          : req.body.name,
+				objectId      : req.body._id,
+				observedBy    : req.body.observedBy,
+				syncStatus    : req.body.syncStatus,
+				updatedAt 	 : req.body.updatedAt,
+				wikipediaLink : req.body.wikipediaLink
 		});
 
 		//db save 
@@ -46,11 +51,16 @@ var HolidayController = function (server) {
 		HolidaysModel.findById(req.params.id, function(err, holidayObj){
 			if(!err){
 				// res.send(holidayObj);
-				holidayObj.name          = req.body.name;
-				holidayObj.observedBy    = req.body.observedBy;
-				holidayObj.wikipediaLink = req.body.wikipediaLink;
-				holidayObj.details       = req.body.details;
+				holidayObj.createAt      = req.body.createAt;
 				holidayObj.date          = req.body.date;
+				holidayObj.details       = req.body.details;
+				holidayObj.image		 = req.body.image;
+				holidayObj.name          = req.body.name;
+				holidayObj.objectId      = req.body.id;
+				holidayObj.observedBy    = req.body.observedBy;
+				holidayObj.syncStatus    = req.body.syncStatus;
+				holidayObj.updatedAt 	 = req.body.updatedAt;
+				holidayObj.wikipediaLink = req.body.wikipediaLink;
 			}else{
 				console.log('Can\'t find holiday Error:' + err);
 			};
