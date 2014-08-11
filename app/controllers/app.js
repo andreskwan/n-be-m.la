@@ -39,9 +39,6 @@ var appController = function (server,users) {
 		}
 		next();
 	};
-
-	
-
 	var getPosts = function (req, res) {
 		//Post para mostrarle al usuario
 		//pupulate brings all the user document from the db
